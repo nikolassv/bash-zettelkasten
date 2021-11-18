@@ -1,0 +1,19 @@
+#!/bin/bash
+
+FILES=($(ls *))
+
+for TAG in "$@"
+do
+	FILES=($(grep "#$TAG" -l ${FILES[@]}))
+	if [[ ${#FILES[@]} -eq 0 ]]; then
+		break
+	fi
+done
+
+for FILE in "${FILES[@]}"
+do
+	echo -e "\e[32m-- $FILE --------------------\e[0m"
+	echo
+	cat $FILE
+	echo
+done
