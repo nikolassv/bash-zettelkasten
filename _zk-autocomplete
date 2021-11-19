@@ -1,0 +1,18 @@
+#!/bin/bash
+
+_zk_autocomplete()
+{
+	local CWORD=${COMP_WORDS[COMP_CWORD]}
+	ALL_TAGS=`zk-tags | sed -e 's/^#//'`
+
+	local IFS=$'\n'
+	CANDIDATE_TAGS=($(compgen -W "${ALL_TAGS[*]}" -- "$CWORD"))
+
+	if [ ${#CANDIDATE_TAGS[*]} -eq 0 ]; then
+		COMPREPLY=()
+	else
+		COMPREPLY=($(printf "%s\n" "${CANDIDATE_TAGS[@]}"))
+	fi
+}
+
+complete -F _zk_autocomplete zk-find
