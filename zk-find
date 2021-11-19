@@ -1,14 +1,6 @@
 #!/bin/bash
 
-FILES=($(ls *))
-
-for TAG in "$@"
-do
-	FILES=($(grep "#$TAG" -l ${FILES[@]}))
-	if [[ ${#FILES[@]} -eq 0 ]]; then
-		break
-	fi
-done
+FILES=($(zk-files-find "$@"))
 
 for FILE in "${FILES[@]}"
 do
