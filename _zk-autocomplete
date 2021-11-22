@@ -2,6 +2,7 @@
 
 _zk_autocomplete()
 {
+
 	local CWORD=${COMP_WORDS[COMP_CWORD]}
 	ALL_TAGS=`zk-tags | sed -e 's/^#//'`
 
