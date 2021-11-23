@@ -1,0 +1,10 @@
+#!/bin/bash
+
+FILES=($(zk-files-find "$@"))
+
+for FILE in "${FILES[@]}"
+do
+	BIRTH=$(date -d @`stat $FILE -c "%W"` -Idate)
+	echo -e "\e[32m-- $FILE --- $BIRTH --\e[0m"
+	cat $FILE
+done

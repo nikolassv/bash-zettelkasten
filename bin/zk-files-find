@@ -1,0 +1,24 @@
+#!/bin/bash
+
+FILES=($(ls *))
+
+for TAG in "$@"
+do
+	if [[ $TAG =~ ^- ]]; then
+		# only files that do not match the tag
+		FILES=($(grep "#${TAG#-}" -L ${FILES[@]}))
+	else
+		# files that do match the tag
+		FILES=($(grep "#$TAG" -l ${FILES[@]}))
+	fi
+
+	if [[ ${#FILES[@]} -eq 0 ]]; then
+		break
+	fi
+done
+
+for FILE in "${FILES[@]}"
+do
+	echo $FILE
+done
+
